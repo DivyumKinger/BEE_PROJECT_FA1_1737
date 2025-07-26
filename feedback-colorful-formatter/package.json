@@ -1,0 +1,31 @@
+{
+  "name": "feedback-colorful-formatter",
+  "version": "1.0.0",
+  "description": "A sentiment-based feedback formatter with colorful output using chalk",
+  "main": "index.js",
+  "keywords": [
+    "feedback",
+    "sentiment",
+    "chalk",
+    "formatter",
+    "cli",
+    "colors",
+    "colorful"
+  ],
+  "author": "Divyum Kinger",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DivyumKinger/feedback-colorful-formatter"
+  },
+  "bugs": {
+    "url": "https://github.com/DivyumKinger/feedback-colorful-formatter/issues"
+  },
+  "homepage": "https://github.com/DivyumKinger/feedback-colorful-formatter#readme"
+}

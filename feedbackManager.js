@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline-sync');
-const { formatFeedback } = require('./utils/feedbackFormatter');
+const { formatFeedback } = require('feedback-colorful-formatter');
 const UserManager = require('./utils/userManager');
 const {
   AppError,

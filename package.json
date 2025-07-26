@@ -1,10 +1,23 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "feedback-collector-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Node.js command-line interface tool for collecting and managing course feedback",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "readline-sync": "^1.4.10"
+  },
+  "keywords": [
+    "cli",
+    "feedback",
+    "education",
+    "nodejs"
+  ],
+  "author": "Divyum Kinger",
+  "license": "MIT",
   "private": true
 }

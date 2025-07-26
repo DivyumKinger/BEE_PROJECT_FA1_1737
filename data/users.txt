@@ -1,0 +1,6 @@
+admin:1234
+student:pass
+john_doe:student123
+jane_smith:pass456
+new_student:pass123
+test_student:test123

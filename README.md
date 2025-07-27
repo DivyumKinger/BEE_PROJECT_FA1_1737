@@ -33,6 +33,19 @@ Collect and explore feedback across the galaxy with this fun Node.js CLI app!
 
 ```sh
 npm start
+npm run help
+```
+
+### Login
+
+```sh
+npm run login
+```
+
+### Logout
+
+```sh
+npm run logout
 ```
 
 ### Add Feedback
@@ -45,6 +58,18 @@ npm run add
 
 ```sh
 npm run view
+```
+
+### Edit Feedback
+
+```sh
+npm run edit
+```
+
+### Delete Feedback
+
+```sh
+npm run delete
 ```
 
 ## Project Structure

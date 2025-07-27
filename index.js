@@ -14,6 +14,7 @@ if (fs.existsSync('session.txt')) {
   }
 }
 
+// function to show the main menu
 function showMenu() {
   console.log('=== 🚀 Feedback Galaxy ===');
   console.log('Commands you can use:');
@@ -26,6 +27,7 @@ function showMenu() {
   console.log('  node index.js logout    # Logout current user');
 }
 
+// Login function
 function login() {
   if (!fs.existsSync('users.txt')) {
     console.log(
@@ -34,7 +36,7 @@ function login() {
     return;
   }
   const username = readline.question('Username: ');
-  const password = readline.question('Password: ', { hideEchoBack: true });
+  const password = readline.question('Password: ', { hideEchoBack: false });
   const users = fs
     .readFileSync('users.txt', 'utf8')
     .split('\n')
@@ -199,7 +201,7 @@ function deleteFeedback() {
   console.log('✅ Feedback deleted!');
 }
 
-// Main logic 
+// Main logic
 
 console.log('Welcome to Feedback Galaxy!');
 if (currentUser) {

@@ -1,80 +1,111 @@
-const readline = require('readline-sync');
-const login = require('./login');
-const feedbackManager = require('./feedbackManager');
-const UserManager = require('./utils/userManager');
-const { handleError } = require('./utils/errorHandler');
+// What is Node.js?
+// Node.js is a JavaScript runtime that lets us run JavaScript outside the browser!
 
-const args = process.argv.slice(2);
+// Importing modules using require() - CommonJS way
+const readline = require('readline-sync'); // External package for user input
+const fs = require('fs'); // Built-in Node.js module for file operations
+const helpers = require('./helpers'); // Our custom module
 
-function showUsage() {
-  console.log('📋 Feedback Collector CLI Tool');
-  console.log('Usage:');
-  console.log('  node index.js login              # Login to the system');
-  console.log(
-    '  node index.js add-feedback       # Add course feedback (students only)'
-  );
-  console.log(
-    '  node index.js view-feedback      # View feedback for a course'
-  );
-  console.log(
-    '  node index.js add-student        # Add new student (admin only)'
-  );
-  console.log(
-    '  node index.js remove-student     # Remove student (admin only)'
-  );
-  console.log(
-    '  node index.js list-students      # List all students (admin only)'
-  );
-  console.log('  node index.js logout             # Logout from the system');
+// Getting command line arguments
+// process.argv contains all arguments passed to the script
+// slice(2) removes 'node' and 'script-name' from the array
+const userCommand = process.argv[2];
+
+// Simple function to show what the app can do
+function showMenu() {
+  console.log('=== 🚀 Feedback Galaxy ===');
+  console.log('Commands you can use:');
+  console.log('  node index.js add       # Add feedback');
+  console.log('  node index.js view      # View all feedback');
+  console.log('  node index.js help      # Show this menu');
 }
 
-(async () => {
-  try {
-    switch (args[0]) {
-      case 'login':
-        await login();
-        break;
+// Function to add feedback to a file
+function addFeedback() {
+  console.log('Adding new feedback...');
 
-      case 'add-feedback':
-        await feedbackManager.addFeedback();
-        break;
+  // Get user input using readline-sync package
+  const name = readline.question('Your name: ');
+  const feedback = readline.question('Your feedback: ');
 
-      case 'view-feedback':
-        await feedbackManager.viewFeedback();
-        break;
-
-      case 'add-student':
-        await feedbackManager.addStudent();
-        break;
-
-      case 'remove-student':
-        await feedbackManager.removeStudent();
-        break;
-
-      case 'list-students':
-        await feedbackManager.listStudents();
-        break;
-
-      case 'logout':
-        UserManager.clearCurrentUser();
-        console.log('👋 Logged out successfully!');
-        break;
-
-      case 'status':
-        const currentUser = UserManager.getCurrentUser();
-        if (currentUser) {
-          console.log(
-            `👤 Logged in as: ${currentUser.username} (${currentUser.role})`
-          );
-        } else {
-          console.log('❌ Not logged in');
-        }
-        break;
-
-      default:
-        showUsage();
-    }
-  } catch (error) {
-    handleError(error);
+  // Use our custom helper to validate input
+  if (!helpers.isValidInput(name) || !helpers.isValidInput(feedback)) {
+    console.log('❌ Name and feedback cannot be empty!');
+    return;
   }
-})();
+
+  // Use our custom helper for greeting
+  console.log(helpers.createGreeting(name));
+
+  // Create feedback object
+  const feedbackData = {
+    name: name,
+    feedback: feedback,
+    wordCount: helpers.countWords(feedback),
+    date: helpers.formatDate(new Date()),
+  };
+
+  // Convert to JSON string
+  const feedbackText = JSON.stringify(feedbackData) + '\n';
+
+  // Write to file using Node.js fs module
+  // appendFileSync adds content to the end of file
+  try {
+    fs.appendFileSync('feedback.txt', feedbackText);
+    console.log('✅ Feedback saved successfully!');
+  } catch (error) {
+    console.log('❌ Error saving feedback:', error.message);
+  }
+}
+
+// Function to read and display all feedback
+function viewFeedback() {
+  console.log('Reading all feedback...');
+
+  try {
+    // Check if file exists
+    if (!fs.existsSync('feedback.txt')) {
+      console.log('No feedback found yet!');
+      return;
+    }
+
+    // Read entire file content
+    const fileContent = fs.readFileSync('feedback.txt', 'utf8');
+
+    // Split by lines and process each line
+    const lines = fileContent.split('\n').filter((line) => line.trim() !== '');
+
+    if (lines.length === 0) {
+      console.log('No feedback found!');
+      return;
+    }
+
+    console.log('\n=== All Feedback ===');
+    lines.forEach((line, index) => {
+      try {
+        const feedback = JSON.parse(line);
+        console.log(`${index + 1}. ${feedback.name}: ${feedback.feedback}`);
+        console.log(`   📅 ${feedback.date}\n`);
+      } catch (error) {
+        console.log(`Error reading feedback line: ${line}`);
+      }
+    });
+  } catch (error) {
+    console.log('❌ Error reading feedback:', error.message);
+  }
+}
+
+// Main logic - this is where our program starts
+console.log('Welcome to 🚀 Feedback Galaxy!');
+
+// Check what command user entered
+if (userCommand === 'add') {
+  addFeedback();
+} else if (userCommand === 'view') {
+  viewFeedback();
+} else if (userCommand === 'help') {
+  showMenu();
+} else {
+  console.log('Unknown command!');
+  showMenu();
+}

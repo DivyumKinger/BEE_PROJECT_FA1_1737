@@ -1,24 +1,21 @@
 {
-  "name": "feedback-collector-cli",
+  "name": "feedback-galaxy",
   "version": "1.0.0",
-  "description": "A Node.js command-line interface tool for collecting and managing course feedback",
+  "description": "Collect and explore feedback across the galaxy with this fun Node.js CLI app!",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js help",
+    "add": "node index.js add",
+    "view": "node index.js view"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
-    "feedback-colorful-formatter": "^1.0.0",
     "readline-sync": "^1.4.10"
   },
   "keywords": [
-    "cli",
+    "nodejs",
+    "beginner",
     "feedback",
-    "education",
-    "nodejs"
+    "learning"
   ],
-  "author": "Divyum Kinger",
-  "license": "MIT",
-  "private": true
+  "author": "Divyum Kinger"
 }

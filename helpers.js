@@ -1,6 +1,3 @@
-// This is a custom module - helpers.js
-// It shows how to create and export your own functions
-
 // Function to format date in a simple way
 function formatDate(date) {
   return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
@@ -30,8 +27,3 @@ module.exports = {
   countWords,
   createGreeting,
 };
-
-// Alternative export syntax (you can use either):
-// module.exports.formatDate = formatDate;
-// module.exports.isValidInput = isValidInput;
-// etc...

@@ -6,7 +6,12 @@
   "scripts": {
     "start": "node index.js help",
     "add": "node index.js add",
-    "view": "node index.js view"
+    "view": "node index.js view",
+    "edit": "node index.js edit",
+    "delete": "node index.js delete",
+    "login": "node index.js login",
+    "logout": "node index.js logout",
+    "help": "node index.js help"
   },
   "dependencies": {
     "readline-sync": "^1.4.10"
